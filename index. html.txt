@@ -1,0 +1,514 @@
+import React, { useState } from 'react';
+import { Phone, Mail, MapPin, Clock, Wrench, Lightbulb, Zap, Home, Building, Calendar, User, MessageSquare, Send } from 'lucide-react';
+
+const App = () => {
+  const [activeTab, setActiveTab] = useState('home');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    location: '',
+    problemType: '',
+    description: '',
+    urgency: 'normal'
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // In a real application, this would send the data to a server
+    alert('Thank you for your submission! We will contact you shortly.');
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      location: '',
+      problemType: '',
+      description: '',
+      urgency: 'normal'
+    });
+  };
+
+  const services = [
+    {
+      icon: <Lightbulb className="w-8 h-8" />,
+      title: "Lighting Installation",
+      description: "Professional lighting solutions for homes and businesses"
+    },
+    {
+      icon: <Zap className="w-8 h-8" />,
+      title: "Electrical Repairs",
+      description: "Quick and reliable repair services for all electrical issues"
+    },
+    {
+      icon: <Home className="w-8 h-8" />,
+      title: "Residential Services",
+      description: "Complete electrical solutions for your home"
+    },
+    {
+      icon: <Building className="w-8 h-8" />,
+      title: "Commercial Services",
+      description: "Professional electrical services for businesses"
+    }
+  ];
+
+  const HomeSection = () => (
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-2xl overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="relative px-8 py-16 md:py-24">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Professional Electrical Services
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 opacity-90">
+              Reliable, safe, and efficient electrical solutions for your home or business
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button 
+                onClick={() => setActiveTab('contact')}
+                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors"
+              >
+                Get Help Now
+              </button>
+              <button 
+                onClick={() => setActiveTab('services')}
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors"
+              >
+                Our Services
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+          Our Electrical Services
+        </h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service, index) => (
+            <div key={index} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+              <div className="text-blue-600 mb-4">
+                {service.icon}
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-gray-800">{service.title}</h3>
+              <p className="text-gray-600">{service.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="bg-gray-50 rounded-2xl p-8 md:p-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+          Why Choose Phaselink?
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Clock className="w-8 h-8 text-blue-600" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">24/7 Emergency Service</h3>
+            <p className="text-gray-600">Available around the clock for urgent electrical emergencies</p>
+          </div>
+          <div className="text-center">
+            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Wrench className="w-8 h-8 text-blue-600" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">Certified Electricians</h3>
+            <p className="text-gray-600">Licensed and experienced professionals you can trust</p>
+          </div>
+          <div className="text-center">
+            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Calendar className="w-8 h-8 text-blue-600" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">Same-Day Service</h3>
+            <p className="text-gray-600">Quick response times for all your electrical needs</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+
+  const ServicesSection = () => (
+    <div className="space-y-8">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">Our Electrical Services</h1>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          Comprehensive electrical solutions tailored to meet your residential and commercial needs
+        </p>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        {services.map((service, index) => (
+          <div key={index} className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+            <div className="flex items-start space-x-4">
+              <div className="bg-blue-100 p-3 rounded-lg text-blue-600">
+                {service.icon}
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold mb-2 text-gray-800">{service.title}</h3>
+                <p className="text-gray-600 text-lg">{service.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 text-white">
+        <h2 className="text-3xl font-bold mb-4">Need Emergency Service?</h2>
+        <p className="text-xl mb-6 opacity-90">Our 24/7 emergency team is ready to help you with urgent electrical issues</p>
+        <button 
+          onClick={() => setActiveTab('contact')}
+          className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+        >
+          Contact Emergency Service
+        </button>
+      </div>
+    </div>
+  );
+
+  const ContactSection = () => (
+    <div className="max-w-4xl mx-auto">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">Report Your Electrical Problem</h1>
+        <p className="text-xl text-gray-600">
+          Tell us about your electrical issue and we'll get back to you promptly
+        </p>
+      </div>
+
+      <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Full Name *
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your full name"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Email Address *
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your email"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Phone Number *
+              </label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Location *
+              </label>
+              <div className="relative">
+                <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your address or area"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Problem Type *
+              </label>
+              <select
+                name="problemType"
+                value={formData.problemType}
+                onChange={handleInputChange}
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="">Select a problem type</option>
+                <option value="outlet">Outlet Issues</option>
+                <option value="lighting">Lighting Problems</option>
+                <option value="breaker">Circuit Breaker</option>
+                <option value="wiring">Wiring Issues</option>
+                <option value="panel">Electrical Panel</option>
+                <option value="emergency">Emergency Repair</option>
+                <option value="installation">New Installation</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Urgency Level
+              </label>
+              <select
+                name="urgency"
+                value={formData.urgency}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="low">Low - Not urgent</option>
+                <option value="normal">Normal - Within a few days</option>
+                <option value="high">High - Within 24 hours</option>
+                <option value="emergency">Emergency - Immediate attention</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Problem Description *
+            </label>
+            <div className="relative">
+              <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                required
+                rows={4}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Please describe your electrical problem in detail..."
+              ></textarea>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-indigo-800 transition-all flex items-center justify-center space-x-2"
+          >
+            <Send className="w-5 h-5" />
+            <span>Submit Problem Report</span>
+          </button>
+        </form>
+      </div>
+
+      <div className="mt-12 bg-gray-50 rounded-2xl p-8">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Contact Information</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="flex items-center space-x-3">
+            <Phone className="w-6 h-6 text-blue-600" />
+            <div>
+              <p className="font-semibold text-gray-800">Phone</p>
+              <p className="text-gray-600">0716209858</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Mail className="w-6 h-6 text-blue-600" />
+            <div>
+              <p className="font-semibold text-gray-800">Email</p>
+              <p className="text-gray-600">service@phaselink.com</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Clock className="w-6 h-6 text-blue-600" />
+            <div>
+              <p className="font-semibold text-gray-800">Hours</p>
+              <p className="text-gray-600">24/7 Emergency Service</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-2">
+              <div className="bg-blue-600 w-10 h-10 rounded-lg flex items-center justify-center">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-2xl font-bold text-gray-800">Phaselink</h1>
+            </div>
+            
+            <nav className="hidden md:flex space-x-8">
+              <button
+                onClick={() => setActiveTab('home')}
+                className={`font-semibold transition-colors ${
+                  activeTab === 'home' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
+                }`}
+              >
+                Home
+              </button>
+              <button
+                onClick={() => setActiveTab('services')}
+                className={`font-semibold transition-colors ${
+                  activeTab === 'services' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
+                }`}
+              >
+                Services
+              </button>
+              <button
+                onClick={() => setActiveTab('contact')}
+                className={`font-semibold transition-colors ${
+                  activeTab === 'contact' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
+                }`}
+              >
+                Report Problem
+              </button>
+            </nav>
+
+            <div className="flex items-center space-x-4">
+              <Phone className="w-5 h-5 text-blue-600" />
+              <span className="font-semibold text-gray-800">0716209858</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Navigation */}
+      <div className="md:hidden bg-white border-t">
+        <div className="flex justify-around py-2">
+          <button
+            onClick={() => setActiveTab('home')}
+            className={`flex flex-col items-center py-2 px-4 ${
+              activeTab === 'home' ? 'text-blue-600' : 'text-gray-600'
+            }`}
+          >
+            <Home className="w-5 h-5" />
+            <span className="text-xs mt-1">Home</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('services')}
+            className={`flex flex-col items-center py-2 px-4 ${
+              activeTab === 'services' ? 'text-blue-600' : 'text-gray-600'
+            }`}
+          >
+            <Wrench className="w-5 h-5" />
+            <span className="text-xs mt-1">Services</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('contact')}
+            className={`flex flex-col items-center py-2 px-4 ${
+              activeTab === 'contact' ? 'text-blue-600' : 'text-gray-600'
+            }`}
+          >
+            <MessageSquare className="w-5 h-5" />
+            <span className="text-xs mt-1">Report</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === 'home' && <HomeSection />}
+        {activeTab === 'services' && <ServicesSection />}
+        {activeTab === 'contact' && <ContactSection />}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="bg-blue-600 w-8 h-8 rounded-lg flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="text-xl font-bold">Phaselink</h3>
+              </div>
+              <p className="text-gray-300">
+                Professional electrical services you can trust. Serving residential and commercial clients with excellence.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Services</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li>Electrical Repairs</li>
+                <li>Lighting Installation</li>
+                <li>Panel Upgrades</li>
+                <li>Emergency Service</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Contact</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center space-x-2">
+                  <Phone className="w-4 h-4" />
+                  <span>0716209858</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Mail className="w-4 h-4" />
+                  <span>service@phaselink.com</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Clock className="w-4 h-4" />
+                  <span>24/7 Emergency Service</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Service Areas</h4>
+              <ul className="space-y-2 text-gray-300">
+                <li>Residential Properties</li>
+                <li>Commercial Buildings</li>
+                <li>Industrial Facilities</li>
+                <li>Emergency Response</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 Phaselink Electrical Services. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
